@@ -6,7 +6,7 @@ body, html {
 }
 
 .bg-image {
-    background-image: url("https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/c8f1b665-bd37-400d-950f-413cb99552ec/GB-en-20231030-popsignuptwoweeks-perspective_alpha_website_large.jpg");
+    /* background-image: url("{% static 'img/netflix1.png' %}"); */
     background-size: cover;
     background-position: center;
     position: relative;

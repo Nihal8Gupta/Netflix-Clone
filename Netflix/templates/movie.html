@@ -34,7 +34,7 @@
         <!-- Movie Title and Back Button -->
         <div class="flex items-center justify-between">
             <h2 class="text-3xl font-semibold">{{movie_details.title}}</h2>
-            <a href="/" class="text-gray-400 hover:text-white">← Back to movies</a>
+            <a href="{% url 'app:index' %}" class="text-gray-400 hover:text-white">← Back to movies</a>
         </div>
 
         <div class="mt-8">

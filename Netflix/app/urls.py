@@ -7,6 +7,6 @@ urlpatterns=[
     path('signup/',signup,name='signup'),
     path('search/',search,name='search'),
     path('my_list/',my_list,name='my_list'),
-    path('movie/',movie,name='movie'),
+    path('movie/<str:pk>',movie,name='movie'),
     path('genre/',genre,name='genre'),
 ]

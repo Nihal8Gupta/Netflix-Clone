@@ -47,7 +47,7 @@
             </form>
             <div class="relative">
                 <a href="#" class="block p-2">Welcome, {{user.username}}</a>  
-                <a href="/logout" class="block p-2">Logout</a>
+                <a href="{% url 'app:login' %}" class="block p-2">Logout</a>
             </div>
         </div>
     </header>
@@ -56,7 +56,7 @@
             <h1 style="color: black;" class="text-5xl mb-5">{{featured_movie.title}}</h1>
             <p style="color: black;" class="mb-5">{{featured_movie.description}}</p>
             <div class="flex space-x-4">
-                <a href="/movie/{{featured_movie.uu_id}}">
+                <a href="/app/movie/{{featured_movie.uu_id}}">
                     <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500">Play</button>
                 </a>
             </div>
@@ -77,14 +77,12 @@
                 data-length="{{ movie.length }}"
                 data-image-card-url="{{ movie.image_card.url }}"
                 data-image-cover-url="{{ movie.image_cover.url }}"
-                data-video-url="/movie/{{ movie.uu_id }}"
+                data-video-url="/app/movie/{{ movie.uu_id }}"
                 style="background-image: url('{{movie.image_card.url}}'); background-size: cover; background-position: center;">
             </div>
             {% endfor %}
     </section>
     
-    
-
     <!-- Modal -->
     <div class="modal" id="movieModal">
         <div class="modal-content">
@@ -99,7 +97,7 @@
             </div>
             <p class="mb-5">Detailed information about the movie.</p>
             <div class="flex space-x-4 mb-5">
-                <a href="movie.html">
+                <a href="/app/movie/{{ movie.uu_id }}">
                     <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500">Play</button>
                 </a>
                 <button id="addToListButton" onclick="addItemToList()" class="border border-white text-white p-2 px-5 rounded hover:bg-gray-700">
@@ -155,30 +153,7 @@
             }
         }
 
-        function addItemToList() {
-            const modal = document.getElementById('movieModal')
-            var movieID = modal.querySelector('.modal-content a').href;
-
-            $.ajax({
-                url: "{% url 'add-to-list' %}",
-                type: "POST",
-                data: {
-                    movie_id: movieID,
-                    csrfmiddlewaretoken: "{{ csrf_token }}"
-                },
-                success: function(data) {
-                    $('#addToListButton').text(data.message);
-
-                    $('#addToListButton').prop('disabled', true);
-
-                    console.log("Item added to list!");
-                },
-                error: function(xhr, errmsg, err) {
-                    
-                    console.error("Error adding item to list: " + errmsg);
-                }
-            });
-        }
+        
     </script>
 </body>
 

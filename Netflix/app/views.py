@@ -2,12 +2,40 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import messages
-# Create your views here.
-def index(request):
-    return render(request,'index.html')
+from django.contrib import auth
+from .models import *
+from django.contrib.auth.decorators import login_required
 
+# Create your views here.
+
+def index(request):
+    movies = Movie.objects.all()
+    context = {'movies':movies}
+    
+    return render(request,'index.html',context)
+
+@login_required(login_url='login')
 def login(request):
+    if request.method == 'POST':
+        
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user is not None: 
+            auth.login(request,user)
+            return redirect('/app/index')
+        else:
+            messages.info(request,'Credentials Invalid !!')
+            return redirect('/app/')
     return render(request,'login.html')
+
+@login_required(login_url='login')
+def movie(request,pk):
+    movie_uuid = pk
+    movie_details = Movie.objects.get(uu_id=movie_uuid)
+    context = {'movie_details':movie_details}
+
+    return render(request,'movie.html',context)
 
 def signup(request):
     if request.method == 'POST':
@@ -18,27 +46,28 @@ def signup(request):
         if password == password2:
             if User.objects.filter(email=email).exists():
                 messages.info(request,'Email alrady taken')
-                return redirect('/signup')
+                return redirect('/app/signup')
             elif User.objects.filter(username=username).exists():
                 messages.info(request,'Username alrady taken')
-                return redirect('/signup')
+                return redirect('/app/signup')
             else:
                 user =User.objects.create_user(username=username,email=email,password=password)
                 user.save()
-                return redirect('/')
+                
                 # log user 
-                user_login = authenticate()
+                # user_login = authenticate(username=username,password=password)
+                # auth.login(request,user_login)
+                return redirect('/app/')
                 
         else:
             messages.info(request,'Password is Not Matching')
-            return redirect('/signup')
+            return redirect('/app/signup')
         
     else:
         return render(request,'signup.html')
 
 
-def movie(request):
-    return render(request,'movie.html')
+
 
 def my_list(request):
     return render(request,'my_list.html')
