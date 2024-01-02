@@ -26,7 +26,7 @@ def login(request):
             return redirect('/app/index')
         else:
             messages.info(request,'Credentials Invalid !!')
-            return redirect('/app/')
+            return redirect('/app/login')
     return render(request,'login.html')
 
 @login_required(login_url='/app/login/')
@@ -36,7 +36,8 @@ def movie(request,pk):
     context = {'movie_details':movie_details}
 
     return render(request,'movie.html',context)
-@login_required(login_url='/app/login/')
+
+
 def signup(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -54,9 +55,6 @@ def signup(request):
                 user =User.objects.create_user(username=username,email=email,password=password)
                 user.save()
                 
-                # log user 
-                # user_login = authenticate(username=username,password=password)
-                # auth.login(request,user_login)
                 return redirect('/app/')
                 
         else:
