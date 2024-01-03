@@ -11,7 +11,26 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   
+    
+    <style>
+        .footer{
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #141414;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+        }
+        .footer .footer-iconTop{
+            margin-left: 1rem;
+        }
+        .gentitle::first-letter{
+            text-transform: capitalize;
+        }
+    </style>
 </head>
 
 <body class="text-white" style="background-color: #141414;">
@@ -27,7 +46,7 @@
                 
                 <div id="dropdownMenu" class="dropdown-content hidden">
                     {% for Genre in genre  %}
-                    <ul><a href="{% url 'app:genre' Genre %}">{{Genre}}</a></ul>
+                    <ul><a class="gentitle" href="{% url 'app:genre' Genre %}">{{Genre}}</a></ul>
                     {% endfor %}
                 </div>
             </div>
@@ -85,20 +104,30 @@
                 <h2 class="text-xl mb-5">Movie Title</h2>
                 <button onclick="hideModal()">X</button>
             </div>
-            <img width="1000" height="100" src="https://bloximages.newyork1.vip.townnews.com/newsrecord.org/content/tncms/assets/v3/editorial/8/1e/81ea500c-45ac-11ee-a11e-a7402910a7e7/64ecaae69243a.image.jpg" alt="Movie Image" class=" mb-5">
+            <img  width="100%" height="100%" src="https://bloximages.newyork1.vip.townnews.com/newsrecord.org/content/tncms/assets/v3/editorial/8/1e/81ea500c-45ac-11ee-a11e-a7402910a7e7/64ecaae69243a.image.jpg" alt="Movie Image" class=" mb-5">
             <div class="flex justify-between mb-5">
                 <span>Year: 2023</span>
                 <span>Length: 2h 15min</span>
             </div>
             <p class="mb-5">Detailed information about the movie.</p>
             <div class="flex space-x-4 mb-5">
-                <a href="movie.html">
+                <a href="/movie/{{ movie.uu_id }}">
                     <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500">Play</button>
                 </a>
                 <button id="addToListButton" onclick="addItemToList()" class="border border-white text-white p-2 px-5 rounded hover:bg-gray-700">
                     Add to List
                 </button>
             </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-text">
+            <p>Copyright &copy; 2023 by Nihal | All Rights Reserved.</p>
+        </div>
+
+        <div class="footer-iconTop">
+            <a href="#"><i class="fa-solid fa-arrow-up"></i></i></a>
         </div>
     </div>
 

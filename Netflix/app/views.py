@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
-@login_required(login_url='/app/login/')
+@login_required(login_url='/')
 def index(request):
     gen=Genre.objects.all()
     movies = Movie.objects.all()
@@ -50,22 +50,23 @@ def login(request):
         user = authenticate(username=username,password=password)
         if user is not None: 
             auth.login(request,user)
-            return redirect('/app/index')
+            return redirect('/index')
         else:
             messages.info(request,'Credentials Invalid !!')
-            return redirect('/app/login')
+            return redirect('/')
     return render(request,'login.html')
 
-@login_required(login_url='/app/login/')
+@login_required(login_url='/')
 def logout(request):
     auth.logout(request)
-    return redirect('/app/login')
+    return redirect('/')
 
-@login_required(login_url='/app/login/')
+@login_required(login_url='/')
 def movie(request,pk):
     movie_uuid = pk
+    gen = Genre.objects.all()
     movie_details = Movie.objects.get(uu_id=movie_uuid)
-    context = {'movie_details':movie_details}
+    context = {'movie_details':movie_details,'genre':gen}
 
     return render(request,'movie.html',context)
 
@@ -79,26 +80,26 @@ def signup(request):
         if password == password2:
             if User.objects.filter(email=email).exists():
                 messages.info(request,'Email alrady taken')
-                return redirect('/app/signup')
+                return redirect('/signup')
             elif User.objects.filter(username=username).exists():
                 messages.info(request,'Username alrady taken')
-                return redirect('/app/signup')
+                return redirect('/signup')
             else:
                 user =User.objects.create_user(username=username,email=email,password=password)
                 user.save()
                 
-                return redirect('/app/')
+                return redirect('/')
                 
         else:
             messages.info(request,'Password is Not Matching')
-            return redirect('/app/signup')
+            return redirect('/signup')
         
     else:
         return render(request,'signup.html')
 
 
 
-@login_required(login_url='/app/login/')
+@login_required(login_url='/')
 def my_list(request):
     gen = Genre.objects.all()
     MO = Movielist.objects.filter(owner_user=request.user)
@@ -108,7 +109,7 @@ def my_list(request):
    
     return render(request,'my_list.html',{'movies':AMO,'genre':gen})
 
-@login_required(login_url='/app/login/')
+@login_required(login_url='/')
 def search(request):
     gen = Genre.objects.all()
     if request.method == 'POST':
@@ -120,7 +121,7 @@ def search(request):
     else:
         return redirect('app/index',{'genre':gen})
 
-@login_required(login_url='/app/login/')
+@login_required(login_url='/')
 def genre(request,pk):
     movie_genre = pk
     gen = Genre.objects.all()
