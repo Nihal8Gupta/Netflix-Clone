@@ -14,7 +14,7 @@
     <header class="p-5 flex justify-between items-center">
         <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" height="30" alt="Netflix Logo" width="110">
         <nav class="flex space-x-5">
-            <span>Home</span>
+            <span><a href="{% url 'app:index' %}">Home</a></span>
             <span>Series</span>
             <span>Films</span>
             <span>New & Popular</span>
@@ -23,7 +23,7 @@
             <input type="search" placeholder="Search" class="bg-gray-700 p-2 rounded">
             <button class="bg-red-600 text-white p-2 rounded hover:bg-red-500">Search</button>
             <div class="relative">
-                <a href="#" class="block p-2">Logout</a>
+                <a href="{% url 'app:logout' %}" class="block p-2">Logout</a>
             </div>
         </div>
     </header>

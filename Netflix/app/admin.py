@@ -4,3 +4,5 @@ from .models import *
 
 admin.site.site_header='Netfilx Clone || Admin'
 admin.site.register(Movie)
+admin.site.register(Movielist)
+admin.site.register(Genre)
