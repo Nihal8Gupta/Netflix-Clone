@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix Clone</title>
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,10 +20,10 @@
         
         
         <nav class="flex space-x-5">
-            <span><a href="{% url 'app:index' %}">Home</a></span>
+            <span><a href="{% url 'app:index' %}"><i class="fa-solid fa-house"></i></i> Home</a></span>
             
             <div class="dropdown">
-                <span id="dropdownMenuButton" class="cursor-pointer">Genres ▼</span>
+                <span id="dropdownMenuButton" class="cursor-pointer"><i class="fa-solid fa-user-gear"></i> Genres ▼</span>
                 
                 <div id="dropdownMenu" class="dropdown-content hidden">
                     {% for Genre in genre  %}
@@ -33,7 +34,7 @@
                 </div>
             </div>
 
-            <span><a href="{% url 'app:my_list' %}">My List</a></span>
+            <span><a href="{% url 'app:my_list' %}"><i class="fa-solid fa-list"></i> My List</a></span>
         </nav>
 
 
