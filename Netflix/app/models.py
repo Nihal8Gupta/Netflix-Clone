@@ -7,6 +7,7 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.GENRE_CHOICES
+    
 class Movie(models.Model):
 
     uu_id = models.UUIDField(default=uuid.uuid4)
