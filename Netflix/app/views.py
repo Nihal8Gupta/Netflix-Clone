@@ -14,11 +14,6 @@ from django.shortcuts import get_object_or_404
 def index(request):
     gen=Genre.objects.all()
     movies = Movie.objects.all()
-    # for i in gen:
-    #     m = Movie.objects.filter(genre=i)
-    #     for j in m:
-    #         print(j,j.genre)
-    #     print()
     context = {'movies':movies,'genre':gen}
     return render(request,'index.html',context)
 
