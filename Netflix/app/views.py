@@ -2,7 +2,7 @@ import re
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib import auth
 from .models import *
@@ -18,32 +18,13 @@ def index(request):
     return render(request,'index.html',context)
 
 
-def add_to_list(request):
-    if request.method == 'POST':
-        movie_url_id = request.POST.get('movie_id')
-        uuid_pattern = r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
-        match = re.search(uuid_pattern,movie_url_id)
-        print(match)
-        movie_id = match.group() if match else None
-        print(movie_id)
-        movie = get_object_or_404(Movie,uu_id=movie_id)
-        print(movie)
-        movie_list, created = Movielist.objects.get_or_create(owner_user=request.user,movie=movie) 
-        movie_list.save()     
-        if created:
-            response_data = {'status':'success','message':'Added'}
-        else:
-            response_data = {'status':'info','message':'Movie already in list'}
-        return JsonResponse(response_data)
-    else:
-        return JsonResponse({'status':'error','message':'Invalid request'},status=400)
 
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username,password=password)
-        if user is not None: 
+        if user and user.is_active: 
             auth.login(request,user)
             return redirect('/index')
         else:
@@ -123,3 +104,20 @@ def genre(request,pk):
     movies = Movie.objects.filter(genre=movie_genre)
     context = {'movies':movies,"movie_genre":movie_genre,'genre':gen}
     return render(request,'genre.html',context)
+
+def add_to_list(request):
+    if request.method == 'POST':
+        movie_url_id = request.POST.get('movie_id')
+        uuid_pattern = r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+        match = re.search(uuid_pattern,movie_url_id)
+        movie_id = match.group() if match else None
+        movie = get_object_or_404(Movie,uu_id=movie_id)
+        movie_list, created = Movielist.objects.get_or_create(owner_user=request.user,movie=movie) 
+        movie_list.save()     
+        if created:
+            response_data = {'status':'success','message':'Added'}
+        else:
+            response_data = {'status':'info','message':'Movie already in list'}
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'status':'error','message':'Invalid request'},status=400)

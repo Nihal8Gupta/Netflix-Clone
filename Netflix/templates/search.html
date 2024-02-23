@@ -84,10 +84,10 @@
                 Search Result for '{{search_term}}'
             </h2>
         </div>
-        <div class="flex space-x-5 overflow-x-auto">
+        <div class="flex space-x-5 flex-wrap">
 
             {% for movie in movies reversed %}
-            <div class="w-40 h-64 flex-shrink-0 film-card"
+            <div class="w-40 m-4 h-64 flex-shrink-0 film-card"
                 onclick="showModal(this)" 
                 data-title="{{ movie.title }}"
                 data-description="{{ movie.description }}"
