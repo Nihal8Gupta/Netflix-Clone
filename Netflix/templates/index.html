@@ -105,7 +105,7 @@
     <section class="py-10 px-5 movie" >
     
         <h2 class="text-xl mb-5">Popular on Netflix</h2>
-        <div class="flex space-x-5  flex-wrap">
+        <div class="flex flex-wrap justify-center ">
 
             {% for movie in movies %}
             <div class="w-40 m-4 h-64 flex-shrink-0 film-card"
@@ -121,6 +121,7 @@
                 style="background-image: url('{{movie.image_card.url}}'); background-size: cover; background-position: center;">
             </div>
             {% endfor %}
+        </div>
     </section>
     
     <!-- Modal -->

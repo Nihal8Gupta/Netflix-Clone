@@ -86,7 +86,7 @@
                 '{{movie_genre | title}}' Movie
             </h2>
         </div>
-        <div class="flex space-x-5 flex-wrap">
+        <div class="flex space-x-5 flex-wrap justify-center">
 
             {% for movie in movies %}
             <div class="w-40 m-3 h-64 flex-shrink-0 film-card"
@@ -102,6 +102,7 @@
                 style="background-image: url('{{movie.image_card.url}}'); background-size: cover; background-position: center;">
             </div>
             {% endfor %}
+        </div>
     </section>
     
    
