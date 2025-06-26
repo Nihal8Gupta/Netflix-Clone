@@ -71,19 +71,27 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Netflix.wsgi.application'
+# ASGI_APPLICATION = 'Netflix.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'database',
+#         'USER':'fl0user',
+#         'PASSWORD':'Yd9D8gekcxUs',
+#         'HOST':'ep-shrill-sun-06862224.ap-southeast-1.aws.neon.fl0.io',
+#         'PORT':'5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database',
-        'USER':'fl0user',
-        'PASSWORD':'Yd9D8gekcxUs',
-        'HOST':'ep-shrill-sun-06862224.ap-southeast-1.aws.neon.fl0.io',
-        'PORT':'5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
